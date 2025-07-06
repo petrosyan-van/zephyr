@@ -380,7 +380,6 @@ static int pca9533_pm_action(const struct device *dev, enum pm_device_action act
 static int pca9533_led_init(const struct device *dev)
 {
 	const struct pca9533_config *config = dev->config;
-	struct pca9533_data *data = dev->data;
 
 	if (!device_is_ready(config->i2c.bus)) {
 		LOG_ERR("I²C bus not ready");
