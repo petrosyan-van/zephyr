@@ -36,6 +36,23 @@ config MODEM_CELLULAR_APN
 	string "APN"
 	default "internet"
 
+config MODEM_CELLULAR_AUTO_APN
+	bool "Autodetect APN from SIM IMSI"
+	help
+	  If enabled, the driver derives the APN from the SIM’s
+	  MCC + MNC.  Falls back to CONFIG_MODEM_CELLULAR_APN
+	  if no match is found.
+
+config MODEM_CELLULAR_AUTO_APN_PROFILES
+	string "APN profile list"
+	depends on MODEM_CELLULAR_AUTO_APN
+	help
+	  Comma‑separated list of mappings in the form:
+	  <apn>=<mccmnc1> <mccmnc2> …
+	  Each <mccmnc> is a 5‑ or 6‑digit Mobile Country Code + Mobile
+	  Network Code.
+	  Example: "shared.m2m.ch=22801, em=29505 90143 29509"
+
 config MODEM_CELLULAR_PERIODIC_SCRIPT_MS
 	int "Periodic script interval in milliseconds"
 	default 2000
