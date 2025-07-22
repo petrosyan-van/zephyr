@@ -1,0 +1,14 @@
+# Copyright (c) 2025 Van Petrosyan
+# SPDX-License-Identifier: Apache-2.0
+
+description: GNSS function of a Quectel BG95 module
+
+compatible: "quectel,bg95-gnss"
+
+properties:
+  modem-pipe:
+    type: phandle
+    required: true
+    description: |
+      Phandle to a `zephyr,modem-user-pipe` node (user_pipe_0 or 1) that the
+      GNSS driver shall use for AT commands and NMEA streaming.

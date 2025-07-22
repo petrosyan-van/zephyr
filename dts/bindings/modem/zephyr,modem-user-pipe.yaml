@@ -1,0 +1,13 @@
+# Copyright (c) 2025 Van Petrosyan
+# SPDX-License-Identifier: Apache-2.0
+
+description: User pipe exposed by cellular modem driver
+
+compatible: "zephyr,modem-user-pipe"
+
+properties:
+  index:
+    type: int
+    required: true
+    description: >
+      Which `user_pipe_N` object this node refers to.
