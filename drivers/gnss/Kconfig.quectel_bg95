@@ -1,0 +1,49 @@
+# Copyright (c) 2025 Van Petrosyan
+# SPDX-License-Identifier: Apache-2.0
+
+menuconfig GNSS_QUECTEL_BG95
+	bool "Quectel BG95 GNSS driver"
+	default y
+	depends on GNSS
+	depends on DT_HAS_QUECTEL_BG95_GNSS_ENABLED
+	depends on DT_HAS_QUECTEL_BG95_ENABLED
+	select MODEM_MODULES
+	select MODEM_CHAT
+	select MODEM_PIPELINK
+	select GNSS_PARSE
+	select GNSS_NMEA0183
+	select GNSS_NMEA0183_MATCH
+	help
+	  Enable support for the GNSS function embedded in Quectel BG95
+	  cellular modules.  The driver talks to the modem over a CMUX
+	  user‑pipe selected in Devicetree by the `*`modem‑pipe` phandle.
+
+if GNSS_QUECTEL_BG95
+
+config GNSS_QUECTEL_BG95_INIT_PRIORITY
+	int "Init priority of the BG95 GNSS driver"
+	default 100                   # > 99 used by modem_cellular
+	depends on GNSS_QUECTEL_BG95
+	help
+	  Must be higher than the priority used by the BG95 cellular
+	  driver so the GNSS device is initialised afterwards.
+
+config GNSS_QUECTEL_BG95_PERIODIC_SCRIPT_MS
+	int "Period between NMEA pulls (+QGPSGNMEA) [ms]"
+	default 1000
+	range 200 10000
+	help
+	  How often the driver will run its periodic AT script when
+	  GNSS is active.  Lower values increase fix latency but raise
+	  current consumption.
+
+if GNSS_SATELLITES
+config GNSS_QUECTEL_BG95_SATELLITES_COUNT
+	int "Maximum number of satellites to track"
+	default 24
+	help
+	  Size of the internal satellite array used when
+	  CONFIG_GNSS_SATELLITES is enabled.
+endif # GNSS_SATELLITES
+
+endif # GNSS
